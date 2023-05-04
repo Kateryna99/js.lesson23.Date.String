@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/tasks.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="wrapper-second">
+
+
+</div>
+<script>
+    'use string'
+    const wrapper = document.querySelector('.wrapper-second')
+//       Задача.============ String===============
+//    Усі задачі можете оформити у одному файлі (так, як ми робимо на лекції)
+
+//     Задача 1. Дано масив рядків. Вивести ті, у яких є цифри (використати метод test та регулярні вирази).
+    function createListWithNumStray(strayArr) {
+
+        let strayList = []
+
+        for(let item of strayArr){
+            if(/\d/.test(item))
+                strayList.push(item)
+        }
+        strayList = strayList.join('.')
+
+        return strayList
+    }
+
+    //    Задача 2. Дано масив рядків. Вивести ті, у яких немає цифр.
+
+    function createListWithoutNumStray(strayArr) {
+
+
+        let strayList = []
+
+        for(let item of strayArr){
+            if(!/\d/.test(item))
+             strayList.push(item)
+        }
+        strayList = strayList.join('.')
+
+        return strayList
+    }
+
+    //         Задача 3. Дано масив рядків. Вивести ті, у яких є голосні літери.
+
+    function createListWithVowelsStray(strayArr) {
+
+        let strayList = []
+
+        for(let item of strayArr){
+            if(/[a-y]/.test(item))
+                strayList.push(item)
+        }
+        strayList = strayList.join('.')
+
+        return strayList
+    }
+
+
+//         Задача 4. Дано масив рядків. Вивести ті, у яких немає голосних літер.
+    function createListWithoutVowelsStray(strayArr) {
+
+        let strayList = []
+
+        for(let item of strayArr){
+            if(!/[a-y]/.test(item))
+                strayList.push(item)
+        }
+        strayList = strayList.join('.')
+
+        return strayList
+    }
+
+
+
+//         Задача 5. Дано масив рядків. Вивести ті, у яких є або цифра 1 або цифра 3.
+    function createListWith1or3Stray(strayArr) {
+
+        let strayList = []
+
+        for(let item of strayArr){
+            if(/(1|3)/.test(item))
+                strayList.push(item)
+        }
+        strayList = strayList.join('.')
+
+        return strayList
+    }
+
+    //     Задача 6. Дано рядок тексту, вивести усі числа, які є у тексті.
+    function CreateListOfNumberInText(text) {
+
+        if(/\d/.test(text))
+
+            return text.match(/\d/g)
+
+    }
+//       Задача 7. Дано рядок тексту. Знайти усі знаки пунктуації, які були використано.
+    function CreateListOfPunctuationInText(text) {
+
+        if(/\W/.test(text))
+
+            return text.match(/\W/g)
+
+    }
+//      Задача 8. Дано рядок тексту. Вивести усі складові, які розділені розділовими знаками.
+    function CreateListOfSymbolsInText(text) {
+
+        if(/\w\W\s\w/.test(text))
+
+            return text.match(/\w\W\s\w/g)
+    }
+
+//     Задача 9. Дано рядок тексту. Перевірити, чи містить він дату у форматі dd.mm.yyyy (dd- день, mm- місяць, yyyy- рік).
+    function CreateListOfDatesInText(text) {
+
+        if(/\d{1,2}.\d{1,2}.\d{4}/.test(text))
+
+            return text.match(/\d{1,2}.\d{1,2}.\d{4}/g)
+    }
+
+//     Задача 10. Дано рядок тексту. Підрахувати кількість двоцифрових чисел у рядку.
+    function GetNumberAmount(text) {
+         let numberAmount
+        if(/\d{2}/.test(text)){
+            numberAmount = text.match(/\d{2}/g)
+        }
+         return  numberAmount
+    }
+//     Задача 11. Визначити чи може бути рядок тексту номером банківської картки (приклад: «4142-3433-2323-3434»). Знайти усі такі номери.
+    function isThereBankCardStray (strayArr) {
+
+        let strayList = []
+
+        for(let item of strayArr){
+            if(/\b\d{4}-\d{4}-\d{4}-\d{4}\b/.test(item))
+                strayList.push(item)
+        }
+        strayList = strayList.join('; ',)
+
+        return strayList
+    }
+//     Задача 12. Дано адресу сайту. Визначити, чи є він урядовим (містить домен “gov”)
+    function isSiteGovernmental(siteAddress) {
+        let result
+        if(/(.gov|gov.)/.test(siteAddress))
+            result = 'Yeap! This site is governmental'
+        else result = 'Nope! This site is not governmental'
+
+        return result
+    }
+
+//     Задача 13. Вибрати усі роки після 2021 року з отриманого повідомлення
+    function createListOfYearAfter2021(yearMessage) {
+
+        let listOfYear = yearMessage.match(/\d{4}/g)
+
+        return listOfYear.filter(el=> el > 2021)
+    }
+//     Задача 14. Дано номер телефону. Перевірити, чи є цей телефон телефоном з України (починаєтсья на «+38»)
+    function isUkrainianNumber(telNumber) {
+         let result
+        if(telNumber.startsWith('+38'))
+            result = 'This is Ukrainian number'
+        else result = 'This is not Ukrainian number'
+
+        return result
+    }
+
+
+    //     Задача 15. Користувач вводить прізвище та ім’я в одному рядку через пробіл.  Замінити пробіл на дефіс.
+    function changeSpaceToHyphen(userName) {
+
+        return userName.replace(' ','-')
+    }
+
+//       Задача 16. Користувач вводить дату у форматі «день.місяць.рік». Отримати рядкове представлення дати у форматі «день/місяць/рік»
+    function changeDotesToSlash(date) {
+
+        return date.replaceAll('.','/')
+    }
+
+// Задача 17. Користувач вводить день (номер дня (0-6) або «sun,mon,tue,wed,thu,fri,sat»). Визначити, чи  є це день вихідним
+    function isHoliday(dayNumber) {
+
+        let result
+        if(/(0|6)/.test(dayNumber)|| dayNumber.startsWith('s'))
+        result = 'This is weekend'
+        else result = 'This is weekday'
+
+        return result
+    }
+
+
+    const strayArr = ['We are at home','23 dogs are outside','Promise to come back at 9pm','The weather is nice today','Just buy it for 5$','We will go to the cinema today','+46729105261','4353-6546-7866-3242','We are at kindergarten for 5 hours','3423-7576-8909-3423']
+    const text = 'Today was nice. We went to the market and bought ice-cream just for 15$. Imagine! Then we met 2 sweet dogs. Their owner said her dream is to have 5. That\'s impossible! Btw I forgot to say, we plan our wedding for 27.07.2024. See you later!'
+    const siteAddress = 'gov.dfsds'
+    const yearMessage= 'We were thinking that 2021 was hard and then 2022 came... The war started and we don\'t know what will be in 2023 or 2024. Oh I just want to come back to 2007'
+    const telNumber = '+390993931881'
+    const userName = 'Kateryna Stelmakhova'
+    const date = '27.07.1999'
+    const dayNumber = 'sut'
+
+    const allTaskList = [createListWithNumStray(strayArr),createListWithoutNumStray(strayArr),createListWithVowelsStray(strayArr),createListWithoutVowelsStray(strayArr),createListWith1or3Stray(strayArr),CreateListOfNumberInText(text),CreateListOfPunctuationInText(text),CreateListOfSymbolsInText(text),CreateListOfDatesInText(text),GetNumberAmount(text),isThereBankCardStray(strayArr),isSiteGovernmental(siteAddress),createListOfYearAfter2021(yearMessage),changeSpaceToHyphen(userName),changeDotesToSlash(date),isHoliday(dayNumber)]
+
+function displayAllTasks(tc,allTaskList){
+        for (let item of allTaskList){
+            let textContainer = document.createElement('p')
+            textContainer.innerHTML = item
+
+            wrapper.append(textContainer)
+        }
+}
+    displayAllTasks(wrapper,allTaskList)
+    console.log(allTaskList)
+</script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/tasks.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="wrapper-first">
+    <div class="wrapper-first__block" id="first"></div>
+    <div class="wrapper-first__block" id="second">
+        <!--<label for="year">Year</label>
+        <input type="number"  id="year" class="wrapper-first__input">
+        <label for="month">Month</label>
+        <input type="number"  id="month" class="wrapper-first__input">
+        <label for="day">Day</label>
+        <input type="number"  id="day" class="wrapper-first__input">
+        <label for="suitability">Suitability days number</label>
+        <input type="number"  id="suitability" class="wrapper-first__input"> -->
+        <label for="date">Enter date of product</label>
+        <input type="date" id="date">
+        <label for="suitability">Suitability days number</label>
+        <input type="number" id="suitability" class="wrapper-first__input">
+        <button class="wrapper-first__button">Check</button>
+        <p class="wrapper-first__expire"></p>
+    </div>
+    <div class="wrapper-first__block" id="third">
+
+    </div>
+</div>
+<script>
+    'use string'
+    //================Date ===============
+    /// Задача  1. Користувач іде у відпустку на 56 днів. Визначити дату на момент його повернення.
+    class ReturningDate {
+        constructor(initDate, value) {
+            this.date = initDate
+            this.value = value
+        }
+
+        getReturningDate() {
+            this.textContainer = document.createElement('p')
+            this.textContainer.classList.add('wrapper-first__return')
+
+            this.date.setDate(this.date.getDate() + this.value)
+
+            this.textContainer.innerHTML = `You are going to rest for ${this.value} days and you will be back on ${this.date.toDateString()}`
+
+            return this.textContainer
+        }
+
+        render(tc) {
+            document.getElementById(tc).append(this.getReturningDate())
+        }
+    }
+
+    const returningDate = new ReturningDate(new Date(), 56)
+    returningDate.render('first')
+
+
+    // Задача 2 . Дано дата виробництва йогурта (вводимо рік, місяць, день) та кількість днів придатності. Визначити чи є він придатним на даний момент.
+
+
+    const suitabilityInput = document.getElementById('suitability')
+    const dateInput = document.getElementById('date')
+    dateInput.max = new Date().toLocaleDateString('en-CA')
+    const button = document.querySelector('.wrapper-first__button')
+    const result = document.querySelector('.wrapper-first__expire')
+
+
+    /*function isExpired(date,infoInputs, result) {
+       //const productDate = new Date(yearInput.value, monthInput.value - 1 ,(parseInt(dayInput.value) + parseInt(suitabilityInput.value)))
+       const productDate = new Date(infoInputs[0].value, infoInputs[1].value - 1 ,(parseInt(infoInputs[2].value) + parseInt(infoInputs[3].value)))
+
+        if((date - productDate) < 0)
+          result.innerHTML = 'Yes you can still eat this product'
+       else result.innerHTML = 'We would not recommend you to eat it'
+
+       console.log(productDate)
+       console.log(date)
+   } */
+    function isExpired(date, expDayAmount, result, dateInput) {
+        const productDate = new Date(dateInput.value)
+        productDate.setDate(productDate.getDate() + parseInt(expDayAmount.value))
+
+        if (productDate > date)
+            result.innerHTML = 'Yes you can still eat this product'
+        else result.innerHTML = 'We would not recommend you to eat it'
+
+        console.log(productDate)
+        console.log(date)
+    }
+
+    button.addEventListener('click', () => {
+        isExpired(new Date(), suitabilityInput, result, dateInput)
+    })
+
+
+    //Задача 3. Сформувати масив з 1000 елементів від 1 до 800. Порівняти час сортування бульбашкою і  вставкою.
+
+    class CompareSortingTime {
+        constructor(value) {
+            this.value = value
+        }
+
+        getRandomNum(max, min) {
+            return min + Math.floor(Math.random() * (max - min + 1))
+        }
+
+        createArrList() {
+            let list = []
+            for (let i = 0; i < this.value; i++) {
+                list.push(this.getRandomNum(1, 800))
+            }
+
+            return list
+
+        }
+
+        bubbleSorting() {
+            const list = this.createArrList()
+            let start = new Date()
+            let changed
+            do {
+                changed = false
+                for (let i = 1; i < list.length; i++) {
+                    if (list[i - 1] > list[i]) {
+                        let temp = list[i - 1]
+                        list[i - 1] = list[i]
+                        list[i] = temp
+                        changed = true;
+                    }
+                }
+            }
+            while (changed === true)
+
+            let end = new Date()
+
+            return end - start
+        }
+
+        insertionSorting() {
+            const list = this.createArrList()
+            console.log(list)
+            let start = new Date()
+            for (let k = 1; k < list.length; k++) {
+                let key = list[k]
+                let i = k - 1
+                while (i >= 0 && list[i] > key) {
+                    list[i + 1] = list[i]
+                    i = i - 1
+                }
+                list[i + 1] = key
+            }
+
+
+            console.log(list)
+            let end = new Date()
+
+            return end - start
+        }
+
+        createElement(title) {
+            let p = document.createElement('p')
+            p.classList.add('wrapper-first__text')
+            p.innerHTML = title
+
+            return p
+        }
+
+        render(tc) {
+            document.getElementById(tc).append(this.createElement(`Time for bubbling sorting - ${this.bubbleSorting()} milliseconds`),this.createElement(`Time for insertion sorting - ${this.insertionSorting()} milliseconds`))
+        }
+    }
+
+    let obj = new CompareSortingTime(1000)
+
+
+    obj.render('third')
+
+
+    //Задача 4. Задаємо користувачу задачу з додавання двох чисел. Визначити скільки секунд було використано для розв’язання задачі.
+
+    function getRandomNum(max, min) {
+        return min + Math.floor(Math.random() * (max - min + 1))
+    }
+
+    function checkTimeForTask(value1,value2) {
+        const rightAnswer = value1 + value2
+        let start = new Date()
+
+        const userAnswer = parseInt(prompt(`${value1} + ${value2}`))
+
+        let end = new Date
+
+        let timing = (end - start) / 1000
+
+        return [timing, rightAnswer]
+    }
+    let[timing,rightAnswer] = checkTimeForTask(getRandomNum(3000,10000),getRandomNum(2000,8000))
+
+    const p = document.createElement('p')
+    p.classList.add('wrapper-first__text')
+
+    p.innerHTML = `It took you ${timing} sec to find a sum. Right answer is ${rightAnswer}`
+
+
+    document.querySelector('.wrapper-first').append(p)
+
+</script>
+
+</body>
+</html>
